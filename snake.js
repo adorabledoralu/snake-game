@@ -128,11 +128,11 @@ class SnakeGame {
 
     draw() {
         // 清空画布
-        this.ctx.fillStyle = '#0a0a14';
+        this.ctx.fillStyle = '#2ecc71';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         // 绘制蛇
-        this.ctx.fillStyle = '#4ecca3';
+        this.ctx.fillStyle = '#f1c40f';
         this.snake.forEach((segment, index) => {
             this.ctx.fillRect(
                 segment.x * this.gridSize,
@@ -143,7 +143,7 @@ class SnakeGame {
         });
 
         // 绘制食物
-        this.ctx.fillStyle = '#ff6b6b';
+        this.ctx.fillStyle = '#e74c3c';
         this.ctx.fillRect(
             this.food.x * this.gridSize,
             this.food.y * this.gridSize,
