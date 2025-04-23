@@ -128,28 +128,99 @@ class SnakeGame {
 
     draw() {
         // 清空画布
-        this.ctx.fillStyle = '#2ecc71';
+        this.ctx.fillStyle = '#CCBA80';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // 绘制蛇
-        this.ctx.fillStyle = '#f1c40f';
+        // 绘制网格
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        this.ctx.lineWidth = 1;
+        
+        // 绘制垂直线
+        for (let x = 0; x <= this.canvas.width; x += this.gridSize) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, 0);
+            this.ctx.lineTo(x, this.canvas.height);
+            this.ctx.stroke();
+        }
+        
+        // 绘制水平线
+        for (let y = 0; y <= this.canvas.height; y += this.gridSize) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, y);
+            this.ctx.lineTo(this.canvas.width, y);
+            this.ctx.stroke();
+        }
+
+        // 绘制蛇（水晶风格）
         this.snake.forEach((segment, index) => {
-            this.ctx.fillRect(
-                segment.x * this.gridSize,
-                segment.y * this.gridSize,
-                this.gridSize - 2,
-                this.gridSize - 2
-            );
+            const x = segment.x * this.gridSize;
+            const y = segment.y * this.gridSize;
+            const size = this.gridSize - 2;
+
+            // 创建渐变
+            const gradient = this.ctx.createLinearGradient(x, y, x + size, y + size);
+            gradient.addColorStop(0, 'rgba(255, 146, 45, 0.8)');
+            gradient.addColorStop(0.5, 'rgba(255, 146, 45, 1)');
+            gradient.addColorStop(1, 'rgba(255, 146, 45, 0.8)');
+
+            // 绘制水晶方块
+            this.ctx.fillStyle = gradient;
+            
+            // 添加阴影效果
+            this.ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            this.ctx.shadowBlur = 4;
+            this.ctx.shadowOffsetX = 2;
+            this.ctx.shadowOffsetY = 2;
+            
+            // 绘制描边
+            this.ctx.strokeStyle = 'rgba(204, 115, 36, 0.8)';
+            this.ctx.lineWidth = 4;
+            this.ctx.strokeRect(x, y, size, size);
+            
+            // 填充方块
+            this.ctx.fillRect(x, y, size, size);
+            
+            // 添加高光效果
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            this.ctx.fillRect(x + 2, y + 2, size/3, size/3);
         });
 
-        // 绘制食物
-        this.ctx.fillStyle = '#e74c3c';
-        this.ctx.fillRect(
-            this.food.x * this.gridSize,
-            this.food.y * this.gridSize,
-            this.gridSize - 2,
-            this.gridSize - 2
-        );
+        // 绘制食物（水晶风格）
+        const foodX = this.food.x * this.gridSize;
+        const foodY = this.food.y * this.gridSize;
+        const foodSize = this.gridSize - 2;
+
+        // 创建食物渐变
+        const foodGradient = this.ctx.createLinearGradient(foodX, foodY, foodX + foodSize, foodY + foodSize);
+        foodGradient.addColorStop(0, 'rgba(253, 2, 147, 0.8)');
+        foodGradient.addColorStop(0.5, 'rgba(253, 2, 147, 1)');
+        foodGradient.addColorStop(1, 'rgba(253, 2, 147, 0.8)');
+
+        // 绘制水晶食物
+        this.ctx.fillStyle = foodGradient;
+        
+        // 添加阴影效果
+        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        this.ctx.shadowBlur = 4;
+        this.ctx.shadowOffsetX = 2;
+        this.ctx.shadowOffsetY = 2;
+        
+        // 绘制食物描边
+        this.ctx.strokeStyle = 'rgba(202, 2, 117, 0.8)';
+        this.ctx.lineWidth = 4;
+        this.ctx.strokeRect(foodX, foodY, foodSize, foodSize);
+        
+        // 填充食物
+        this.ctx.fillRect(foodX, foodY, foodSize, foodSize);
+        
+        // 添加食物高光效果
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        this.ctx.fillRect(foodX + 2, foodY + 2, foodSize/3, foodSize/3);
+
+        // 重置阴影
+        this.ctx.shadowBlur = 0;
+        this.ctx.shadowOffsetX = 0;
+        this.ctx.shadowOffsetY = 0;
     }
 
     endGame() {

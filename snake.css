@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    background: #CDF137;
     color: #fff;
     min-height: 100vh;
     display: flex;
@@ -26,9 +26,9 @@ body {
 }
 
 .game-header h1 {
-    font-size: 2.5em;
+    font-size: 1.5em;
     margin-bottom: 15px;
-    color: #f1c40f;
+    color: #2c3e50;
 }
 
 .score-container {
@@ -39,63 +39,55 @@ body {
 }
 
 .score-container p {
-    font-size: 1.2em;
+    font-size: 0.9em;
+    color: #2c3e50;
 }
 
 .game-board {
-    background-color: #0f0f1b;
+    background-color: #FF4901;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 #snake-canvas {
     display: block;
     margin: 0 auto;
-    background-color: #2ecc71;
+    background-color: #CCBA80;
     border-radius: 5px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .game-controls {
-    background-color: #0f0f1b;
+    background-color: #FEF72E;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-}
-
-.controls-info {
-    margin-bottom: 20px;
-}
-
-.controls-info h2 {
-    color: #4ecca3;
-    margin-bottom: 10px;
-}
-
-.controls-info p {
-    margin: 5px 0;
 }
 
 .game-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
 button {
-    background-color: #e74c3c;
+    background-color: #3EA3FE;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    position: relative;
+    box-shadow: 0 4px 0 #2d7bc4;
 }
 
-button:hover {
-    background-color: #c0392b;
+button:active {
+    top: 4px;
+    box-shadow: none;
 }
 
 .mobile-controls {
@@ -105,7 +97,7 @@ button:hover {
 @media (max-width: 768px) {
     .mobile-controls {
         display: block;
-        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .control-row {
@@ -134,4 +126,22 @@ button:hover {
         grid-column: 2;
         grid-row: 2;
     }
+}
+
+.control-row button {
+    background-color: #FF4901;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s;
+    position: relative;
+    box-shadow: 0 4px 0 #e63e00;
+}
+
+.control-row button:active {
+    top: 4px;
+    box-shadow: none;
 } 
