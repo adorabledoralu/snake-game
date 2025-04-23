@@ -1,8 +1,16 @@
+// 游戏配置
+const config = {
+    gridSize: 20, // 网格大小
+    initialSpeed: 150, // 初始速度（毫秒）
+    speedIncrement: 2, // 速度增量
+    maxSpeed: 50 // 最大速度
+};
+
 class SnakeGame {
     constructor() {
         this.canvas = document.getElementById('snake-canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.gridSize = 20;
+        this.gridSize = config.gridSize;
         this.tileCount = this.canvas.width / this.gridSize;
         this.snake = [{x: 10, y: 10}];
         this.food = this.generateFood();
@@ -11,7 +19,7 @@ class SnakeGame {
         this.highScore = localStorage.getItem('snakeHighScore') || 0;
         this.gameLoop = null;
         this.isPaused = false;
-        this.speed = 200;
+        this.speed = config.initialSpeed;
         this.gameOver = false;
 
         this.init();
@@ -36,6 +44,27 @@ class SnakeGame {
             if (e.key === 'ArrowRight') this.changeDirection('right');
             if (e.key === 'p') this.togglePause();
         });
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', () => {
+            this.calculateGameArea();
+            this.draw();
+        });
+    }
+
+    calculateGameArea() {
+        const containerWidth = this.canvas.parentElement.clientWidth;
+        const containerHeight = this.canvas.parentElement.clientHeight;
+        
+        // 保持网格为正方形
+        const gridSize = Math.min(
+            Math.floor(containerWidth / config.gridSize),
+            Math.floor(containerHeight / config.gridSize)
+        ) * config.gridSize;
+        
+        this.canvas.width = gridSize;
+        this.canvas.height = gridSize;
+        this.gridSize = gridSize / this.tileCount;
     }
 
     startGame() {
@@ -114,8 +143,8 @@ class SnakeGame {
             document.getElementById('score').textContent = this.score;
             this.food = this.generateFood();
             // 调整加速逻辑，使速度变化更平缓
-            if (this.score % 100 === 0 && this.speed > 100) { // 每100分加速一次，最低速度限制在100
-                this.speed -= 20; // 每次减少20毫秒
+            if (this.score % 100 === 0 && this.speed > config.maxSpeed) { // 每100分加速一次，最低速度限制在最大速度
+                this.speed -= config.speedIncrement; // 每次减少速度增量毫秒
                 clearInterval(this.gameLoop);
                 this.gameLoop = setInterval(() => this.update(), this.speed);
             }

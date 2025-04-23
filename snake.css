@@ -56,6 +56,18 @@ body {
     background-color: #CCBA80;
     border-radius: 5px;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    max-width: 400px;
+    max-height: calc(100vh - 200px);
+}
+
+@media (max-width: 768px) {
+    #snake-canvas {
+        max-width: 100%;
+        max-height: calc(100vh - 150px);
+    }
 }
 
 .game-controls {
